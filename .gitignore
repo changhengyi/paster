@@ -1,0 +1,38 @@
+# 编译输出。每次构建都会重新生成，体积大，不要提交。
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Rr]eleases/
+publish/
+artifacts/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# NuGet
+project.lock.json
+project.fragment.lock.json
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+
+# 调试符号与日志
+*.pdb
+*.log
+
+# 系统垃圾文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# 本地开发备忘，和程序本身无关
+dev_prompts.txt

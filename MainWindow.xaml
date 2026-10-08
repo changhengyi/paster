@@ -1,0 +1,338 @@
+<Window x:Class="Paster.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        mc:Ignorable="d"
+        Title="Paster"
+        Width="560"
+        Height="620"
+        MinWidth="500"
+        MinHeight="500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        Background="Transparent">
+    <WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="0"
+                            CornerRadius="14"
+                            GlassFrameThickness="0"
+                            ResizeBorderThickness="8"
+                            UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="WindowBgBrush" Color="#FFF5F7FB" />
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFFFF" />
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#2F343A" />
+        <SolidColorBrush x:Key="BorderBrush" Color="#E6EAF3" />
+        <SolidColorBrush x:Key="TextMainBrush" Color="#1F2937" />
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#6B7280" />
+
+        <Style x:Key="RoundIconButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="4,0,0,0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Foreground" Value="{StaticResource TextMutedBrush}" />
+            <Setter Property="Background" Value="#00000000" />
+            <Setter Property="BorderBrush" Value="#00000000" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root"
+                                CornerRadius="8"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#ECEFF3" />
+                                <Setter Property="Foreground" Value="{StaticResource TextMainBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#D9DEE6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="16,9" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#00000000" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonRoot"
+                                CornerRadius="10"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonRoot" Property="Background" Value="#252A2F" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonRoot" Property="Background" Value="#1E2227" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PageTabItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Root"
+                                Padding="14,7"
+                                CornerRadius="8"
+                                Background="#ECEFF3"
+                                Cursor="Hand">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="{StaticResource PrimaryBrush}" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#D9DEE6" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True" />
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Root" Property="Background" Value="#252A2F" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border Margin="0"
+            CornerRadius="16"
+            Background="{StaticResource WindowBgBrush}"
+            BorderBrush="#00000000"
+            BorderThickness="0">
+        <Grid Margin="14">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0,0,0,12" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Paster"
+                           VerticalAlignment="Center"
+                           FontSize="17"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextMainBrush}" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Button Style="{StaticResource PrimaryButtonStyle}"
+                            Margin="0,0,10,0"
+                            Width="32"
+                            Height="32"
+                            Padding="0"
+                            ToolTip="在当前页添加片段"
+                            Click="AddButton_Click">
+                        <TextBlock Text="+"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                    </Button>
+                    <Button Style="{StaticResource RoundIconButtonStyle}"
+                            ToolTip="设置 clips.json"
+                            Click="SettingsButton_Click">
+                        <TextBlock Text="&#xE713;"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="13"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </Button>
+                    <Button Style="{StaticResource RoundIconButtonStyle}"
+                            ToolTip="最小化"
+                            Click="MinimizeButton_Click">
+                        <TextBlock Text="&#xE921;"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="12" />
+                    </Button>
+                    <Button Style="{StaticResource RoundIconButtonStyle}"
+                            ToolTip="隐藏到托盘"
+                            Click="CloseButton_Click">
+                        <TextBlock Text="&#xE8BB;"
+                                   FontFamily="Segoe MDL2 Assets"
+                                   FontSize="12" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1"
+                    CornerRadius="12"
+                    Background="{StaticResource SurfaceBrush}"
+                    BorderBrush="#00000000"
+                    BorderThickness="0">
+                <Grid Margin="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ListBox x:Name="PageTabsControl"
+                             Grid.Row="0"
+                             Margin="0,0,0,8"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                             SelectionChanged="PageTabsControl_SelectionChanged">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource PageTabItemStyle}" />
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"
+                                           FontSize="13"
+                                           FontWeight="SemiBold" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <ListView x:Name="ClipListView"
+                              Grid.Row="1"
+                              BorderThickness="0"
+                              Background="Transparent"
+                              AllowDrop="True"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              PreviewMouseMove="ClipListView_PreviewMouseMove"
+                              PreviewMouseLeftButtonUp="ClipListView_PreviewMouseLeftButtonUp"
+                              DragOver="ClipListView_DragOver"
+                              Drop="ClipListView_Drop"
+                              DragLeave="ClipListView_DragLeave">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="0,0,0,6" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="10">
+                                            <ContentPresenter />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#F4F7FF" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10,8"
+                                    Cursor="Hand"
+                                    MouseLeftButtonUp="ClipItemBorder_MouseLeftButtonUp">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="22" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="34" />
+                                        <ColumnDefinition Width="34" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="DragHandle"
+                                               Grid.Column="0"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Cursor="SizeAll"
+                                               ToolTip="拖动排序"
+                                               Foreground="{StaticResource TextMutedBrush}"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontSize="14"
+                                               Text="&#xE76F;"
+                                               PreviewMouseLeftButtonDown="DragHandle_PreviewMouseLeftButtonDown" />
+                                    <TextBlock Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextMainBrush}"
+                                               Text="{Binding Title}"
+                                               TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="2"
+                                               Margin="10,0"
+                                               VerticalAlignment="Center"
+                                               Foreground="{StaticResource TextMutedBrush}"
+                                               Text="{Binding Content}"
+                                               TextTrimming="CharacterEllipsis" />
+                                    <Button Grid.Column="3"
+                                            Width="26"
+                                            Height="26"
+                                            Margin="0,0,6,0"
+                                            Padding="0"
+                                            ToolTip="修改"
+                                            Click="EditButton_Click"
+                                            Style="{StaticResource RoundIconButtonStyle}">
+                                        <TextBlock Text="&#xE70F;"
+                                                   FontFamily="Segoe MDL2 Assets"
+                                                   FontSize="13"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                    </Button>
+                                    <Button Grid.Column="4"
+                                            Width="26"
+                                            Height="26"
+                                            Padding="0"
+                                            ToolTip="删除"
+                                            Click="DeleteButton_Click"
+                                            Style="{StaticResource RoundIconButtonStyle}">
+                                        <TextBlock Text="&#xE74D;"
+                                                   FontFamily="Segoe MDL2 Assets"
+                                                   FontSize="13"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
